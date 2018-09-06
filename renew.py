@@ -1,5 +1,4 @@
 import os
-import time
 
 from app.exceptions import NotFoundConfig
 from app.tools.params import get_params
@@ -35,8 +34,6 @@ if __name__ == '__main__':
                 certbot_path, domain, authenticator_path
             )
         )
-        # 腾讯云接口调用时间限制
-        time.sleep(30)
 
     try:
         # 删除环境变量
