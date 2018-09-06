@@ -16,4 +16,7 @@ def get_params(*args):
         except AttributeError:
             raise ConfigValueError(arg)
 
-    return tuple(values)
+    if len(values) > 1:
+        return tuple(values)
+    else:
+        return values[0]

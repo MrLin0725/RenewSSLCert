@@ -29,7 +29,7 @@ def sign(**params):
         Config.TENCENT_CNS_API_LOCATION.strip('/')
     ])
 
-    (secret_key) = get_params('TENCENT_CNS_SECRETKEY')
+    secret_key = get_params('TENCENT_CNS_SECRETKEY')
 
     # 按照升序排列
     params_strings = '&'.join([
