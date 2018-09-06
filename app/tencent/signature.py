@@ -2,8 +2,12 @@ import hmac
 from base64 import b64encode
 from hashlib import sha1
 
-from app.exceptions import ConfigValueError
-from config import Config
+from app.exceptions import ConfigValueError, NotFoundConfig
+
+try:
+    from config import Config
+except ModuleNotFoundError:
+    raise NotFoundConfig
 
 
 def sign(**params):

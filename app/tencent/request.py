@@ -3,9 +3,13 @@ from random import randint
 
 import requests
 
-from app.exceptions import ConfigValueError, RequestError, CreateRecordError
+from app.exceptions import ConfigValueError, RequestError, CreateRecordError, NotFoundConfig
 from app.tencent.signature import sign
-from config import Config
+
+try:
+    from config import Config
+except ModuleNotFoundError:
+    raise NotFoundConfig
 
 
 def create_record(domain, sub_domain, value, record_type='TXT', record_line='默认'):

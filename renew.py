@@ -1,8 +1,12 @@
 import os
 import time
 
-from app.exceptions import ConfigValueError
-from config import Config
+from app.exceptions import ConfigValueError, NotFoundConfig
+
+try:
+    from config import Config
+except ModuleNotFoundError:
+    raise NotFoundConfig
 
 if __name__ == '__main__':
     try:
