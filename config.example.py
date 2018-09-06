@@ -13,8 +13,6 @@ class Config(object):
     TENCENT_CNS_API = 'cns.api.qcloud.com'
     # 腾讯云解析API路径
     TENCENT_CNS_API_LOCATION = '/v2/index.php'
-    # 腾讯云解析 Action Name
-    TENCENT_CNS_ACTION_NAME = 'RecordCreate'
     # 腾讯云解析 SecretId
     TENCENT_CNS_SECRETID = ''
     # 腾讯云解析 SecretKey

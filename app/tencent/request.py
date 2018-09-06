@@ -31,10 +31,10 @@ def create_record(domain, sub_domain, value, record_type='TXT', record_line='默
     nonce = randint(10000, 99999)
 
     # ActionName 和 SecretId
-    (action, secret_id) = get_params('TENCENT_CNS_ACTION_NAME', 'TENCENT_CNS_SECRETID')
+    secret_id = get_params('TENCENT_CNS_SECRETID')
 
     params = dict(
-        Action=action,
+        Action='RecordCreate',
         Timestamp=timestamp,
         Nonce=nonce,
         SecretId=secret_id,
