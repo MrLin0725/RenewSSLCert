@@ -2,4 +2,4 @@
 
 subDomain="_acme-challenge"
 
-$(which python3) run.py ${RENEW_DOMAIN} ${subDomain} ${CERTBOT_VALIDATION}
+$(which python3) handler.py ${RENEW_DOMAIN} ${subDomain} ${CERTBOT_VALIDATION}
