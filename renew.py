@@ -25,7 +25,10 @@ if __name__ == '__main__':
         raise FileNotFoundError('Can not found certbot-auto')
 
     # authenticator 脚本绝对路径
-    authenticator_path = os.path.join(os.path.abspath('.'), 'authenticator.sh')
+    authenticator_path = os.path.join(
+        os.path.split(os.path.realpath(__file__))[0],
+        'authenticator.sh'
+    )
     if not os.path.isfile(authenticator_path):
         raise FileNotFoundError('Can not found authenticator.sh')
 
