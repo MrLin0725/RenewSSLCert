@@ -34,9 +34,3 @@ if __name__ == '__main__':
                 certbot_path, domain, authenticator_path
             )
         )
-
-    try:
-        # 删除环境变量
-        del os.environ['RENEW_DOMAIN']
-    except KeyError:
-        pass
