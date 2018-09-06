@@ -3,8 +3,9 @@ from random import randint
 
 import requests
 
-from app.exceptions import ConfigValueError, RequestError, CreateRecordError, NotFoundConfig
+from app.exceptions import RequestError, CreateRecordError, NotFoundConfig
 from app.tencent.signature import sign
+from app.tools.params import get_params
 
 try:
     from config import Config
@@ -29,17 +30,8 @@ def create_record(domain, sub_domain, value, record_type='TXT', record_line='默
     # 随机正整数
     nonce = randint(10000, 99999)
 
-    try:
-        # Action Name
-        action = Config.TENCENT_CNS_ACTION_NAME
-    except AttributeError:
-        raise ConfigValueError('TENCENT_CNS_ACTION_NAME')
-
-    try:
-        # SecretId
-        secret_id = Config.TENCENT_CNS_SECRETID
-    except AttributeError:
-        raise ConfigValueError('TENCENT_CNS_SECRETID')
+    # ActionName 和 SecretId
+    (action, secret_id) = get_params('TENCENT_CNS_ACTION_NAME', 'TENCENT_CNS_SECRETID')
 
     params = dict(
         Action=action,

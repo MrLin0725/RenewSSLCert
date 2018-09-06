@@ -2,7 +2,8 @@ import hmac
 from base64 import b64encode
 from hashlib import sha1
 
-from app.exceptions import ConfigValueError, NotFoundConfig
+from app.exceptions import NotFoundConfig
+from app.tools.params import get_params
 
 try:
     from config import Config
@@ -28,10 +29,7 @@ def sign(**params):
         Config.TENCENT_CNS_API_LOCATION.strip('/')
     ])
 
-    try:
-        secret_key = Config.TENCENT_CNS_SECRETKEY
-    except AttributeError:
-        raise ConfigValueError('TENCENT_CNS_SECRETKEY')
+    (secret_key) = get_params('TENCENT_CNS_SECRETKEY')
 
     # 按照升序排列
     params_strings = '&'.join([

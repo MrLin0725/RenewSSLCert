@@ -1,7 +1,8 @@
 import os
 import time
 
-from app.exceptions import ConfigValueError, NotFoundConfig
+from app.exceptions import NotFoundConfig
+from app.tools.params import get_params
 
 try:
     from config import Config
@@ -9,15 +10,7 @@ except ModuleNotFoundError:
     raise NotFoundConfig
 
 if __name__ == '__main__':
-    try:
-        certbot_dir = Config.CERTBOT_DIR
-    except AttributeError:
-        raise ConfigValueError('CERTBOT_DIR')
-
-    try:
-        domains = Config.DOMAINS
-    except AttributeError:
-        raise ConfigValueError('DOMAINS')
+    (certbot_dir, domains) = get_params('CERTBOT_DIR', 'DOMAINS')
 
     # certbot-auto 绝对路径
     certbot_path = os.path.join(certbot_dir, 'certbot-auto')
