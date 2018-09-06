@@ -31,6 +31,8 @@ if __name__ == '__main__':
     )
     if not os.path.isfile(authenticator_path):
         raise FileNotFoundError('Can not found authenticator.sh')
+    # 添加执行权限
+    os.chmod(authenticator_path, 744)
 
     # 多个域名
     for domain in domains:
