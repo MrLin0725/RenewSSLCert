@@ -1,12 +1,6 @@
 import os
 
-from app.exceptions import NotFoundConfig
 from app.tools.params import get_params
-
-try:
-    from config import Config
-except ModuleNotFoundError:
-    raise NotFoundConfig
 
 if __name__ == '__main__':
     (certbot_dir, domains) = get_params('CERTBOT_DIR', 'DOMAINS')
