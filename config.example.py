@@ -9,10 +9,6 @@ class Config(object):
     # certbot-auto 目录绝对路径
     CERTBOT_DIR = '/root'
 
-    # 腾讯云解析API地址
-    TENCENT_CNS_API = 'cns.api.qcloud.com'
-    # 腾讯云解析API路径
-    TENCENT_CNS_API_LOCATION = '/v2/index.php'
     # 腾讯云解析 SecretId
     TENCENT_CNS_SECRETID = ''
     # 腾讯云解析 SecretKey
