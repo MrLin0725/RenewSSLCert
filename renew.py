@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from app.tools.params import get_params
 
@@ -23,8 +24,9 @@ if __name__ == '__main__':
         # 设置环境变量
         os.environ['RENEW_DOMAIN'] = domain
         # FIXME: --dry-run 测试阶段
-        os.system(
+        subprocess.call(
             '{} renew --cert-name {} --manual-auth-hook {} --dry-run'.format(
                 certbot_path, domain, authenticator_path
-            )
+            ),
+            shell=True
         )
