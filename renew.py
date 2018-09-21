@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     # 多个域名
     for domain in domains:
-        logger.info('Renew SSL {} certificate'.format(domain))
+        logger.info('Renew {} SSL certificate'.format(domain))
         # 设置环境变量
         os.environ['RENEW_DOMAIN'] = domain
         # FIXME: --dry-run 测试阶段
