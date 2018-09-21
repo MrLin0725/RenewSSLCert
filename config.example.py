@@ -1,3 +1,6 @@
+import os
+
+
 class Config(object):
     """参数设置"""
 
@@ -13,3 +16,5 @@ class Config(object):
     TENCENT_CNS_SECRETID = ''
     # 腾讯云解析 SecretKey
     TENCENT_CNS_SECRETKEY = ''
+
+    LOG_PATH = os.path.join(os.path.split(os.path.realpath(__file__))[0], 'error.log')
