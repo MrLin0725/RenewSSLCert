@@ -27,7 +27,6 @@ class TencentCloudRequester(object):
         self.value = value
         (self.secret_id, self.secret_key) = get_params('TENCENT_CNS_SECRETID', 'TENCENT_CNS_SECRETKEY')
         self.logger = Logger()
-        self.logger.info('Initialization done...')
 
     def __sign(self):
         """生成腾讯云接口需要的签名串
@@ -48,7 +47,8 @@ class TencentCloudRequester(object):
 
     def __request(self):
         """请求"""
-        self.logger.info('Request: {}'.format(self.request_api))
+        # 获取签名
+        self.params['Signature'] = self.__sign()
         for _ in range(self.request_retry):
             response = requests.get(self.request_api, params=self.params)
             if response.status_code == 200:
@@ -66,6 +66,10 @@ class TencentCloudRequester(object):
             SecretId=self.secret_id
         )
 
+    def start(self):
+        self.create_record()
+        self.delete_record()
+
     def create_record(self):
         """添加解析记录"""
         self.logger.info('Create DNS record start...')
@@ -79,9 +83,49 @@ class TencentCloudRequester(object):
                 recordLine=self.record_line,
             )
         )
-        self.params['Signature'] = self.__sign()
         result = self.__request()
         if result['codeDesc'] != 'Success':
             self.logger.critical('Create DNS record failed...')
             raise HandlerException('CreateRecordError', result['message'])
         self.logger.info('Create DNS record successfully...')
+
+    def list_record(self):
+        """获取解析记录"""
+        self.logger.info('Get DNS record start...')
+        self.params = self.__gen_common_params(action='RecordList')
+        self.params.update(
+            dict(
+                domain=self.domain,
+                subDomain=self.sub_domain,
+                recordType=self.record_type,
+            )
+        )
+        result = self.__request()
+        if result['codeDesc'] != 'Success':
+            self.logger.error('Get DNS record failed...')
+            return list()
+
+        self.logger.info('Get DNS record successfully...')
+        return result['data']['records']
+
+    def delete_record(self):
+        """删除解析记录"""
+        self.logger.info('Clear DNS record start...')
+        records = self.list_record()
+        if not records:
+            self.logger.info('DNS record is empty...')
+        else:
+            for record in records:
+                self.params = self.__gen_common_params(action='RecordDelete')
+                self.params.update(
+                    dict(
+                        domain=self.domain,
+                        recordId=record['id']
+                    )
+                )
+                result = self.__request()
+                if result['codeDesc'] != 'Success':
+                    self.logger.error('Delete DNS record {} failed...'.format(record['id']))
+                else:
+                    self.logger.info('Delete DNS record {} successfully...'.format(record['id']))
+            self.logger.info('Clear DNS record completed...')
