@@ -21,7 +21,7 @@ class TencentCloudRequester(object):
     params = {}
     request_retry = 3
 
-    def __init__(self, domain, sub_domain, value):
+    def __init__(self, domain, sub_domain, value=None):
         self.domain = domain
         self.sub_domain = sub_domain
         self.value = value
@@ -66,10 +66,6 @@ class TencentCloudRequester(object):
             SecretId=self.secret_id
         )
 
-    def start(self):
-        self.create_record()
-        self.delete_record()
-
     def create_record(self):
         """添加解析记录"""
         self.logger.info('Create DNS record start...')
@@ -88,6 +84,8 @@ class TencentCloudRequester(object):
             self.logger.critical('Create DNS record failed...')
             raise HandlerException('CreateRecordError', result['message'])
         self.logger.info('Create DNS record successfully...')
+        # 等待解析记录生效
+        time.sleep(30)
 
     def list_record(self):
         """获取解析记录"""

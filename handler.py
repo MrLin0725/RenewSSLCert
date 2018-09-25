@@ -10,4 +10,4 @@ if __name__ == '__main__':
 
     # 创建解析记录
     requester = TencentCloudRequester(domain=domain, sub_domain=sub_domain, value=value)
-    requester.start()
+    requester.create_record()
