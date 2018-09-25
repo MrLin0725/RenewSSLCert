@@ -7,7 +7,7 @@ from tencentcloud.logs import Logger
 if __name__ == '__main__':
     logger = Logger()
 
-    (certbot_dir, domains) = get_params('CERTBOT_DIR', 'DOMAINS')
+    (certbot_dir, domains, certbot_test) = get_params('CERTBOT_DIR', 'DOMAINS', 'CERTBOT_TEST')
 
     # certbot-auto 绝对路径
     certbot_path = os.path.join(certbot_dir, 'certbot-auto')
@@ -38,9 +38,12 @@ if __name__ == '__main__':
         logger.info('Renew {} SSL certificate'.format(domain))
         # 设置环境变量
         os.environ['RENEW_DOMAIN'] = domain
-        subprocess.call(
-            '{} renew --cert-name {} --manual-auth-hook {} --manual-cleanup-hook {}'.format(
+        command = '{} renew --cert-name {} --manual-auth-hook {} --manual-cleanup-hook {}'.format(
                 certbot_path, domain, authenticator_path, cleanup_path
-            ),
+            )
+        if certbot_test:
+            command += ' --dry-run'
+        subprocess.call(
+            command,
             shell=True
         )
