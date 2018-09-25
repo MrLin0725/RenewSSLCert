@@ -21,7 +21,7 @@ class TencentCloudRequester(object):
     params = {}
     request_retry = 3
 
-    def __init__(self, domain, sub_domain, value=None):
+    def __init__(self, domain, sub_domain='_acme-challenge', value=None):
         self.domain = domain
         self.sub_domain = sub_domain
         self.value = value
