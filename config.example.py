@@ -11,12 +11,12 @@ class Config(object):
     ]
     # certbot-auto 目录绝对路径
     CERTBOT_DIR = '/root'
-    # 是否需要测试
+    # 测试模式：True or False
     CERTBOT_TEST = True
 
-    # 腾讯云解析 SecretId
+    # 腾讯云 SecretId
     TENCENT_CNS_SECRETID = ''
-    # 腾讯云解析 SecretKey
+    # 腾讯云 SecretKey
     TENCENT_CNS_SECRETKEY = ''
 
     # 日志路径
