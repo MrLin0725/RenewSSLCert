@@ -8,7 +8,6 @@
  - crontab
 
 ### 使用方法
-> 根据需要使用虚拟环境
 ```bash
 # 安装依赖
 pip install -r requirements.txt
@@ -17,7 +16,7 @@ pip install -r requirements.txt
 cp config.example.py config.py
 vim config.py
 
+# 定时任务
 vim /etc/crontab
-# 插入
-0 0 1 * * root cd /path/RenewSSLCert && python renew.py
+0 0 1 * * root cd /path/RenewSSLCert && /path/python renew.py >> renew.log
 ```
