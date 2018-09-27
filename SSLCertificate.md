@@ -90,7 +90,3 @@ chmod a+x certbot-auto
 ```bash
  openssl x509 -in  /etc/letsencrypt/live/example.com/cert.pem
 ```
-
-10. 证书续期（阿里云、腾讯云等）
-
- 同[证书申请](#apply)命令，需要手动添加DNS解析记录
