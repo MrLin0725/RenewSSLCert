@@ -9,8 +9,6 @@ class Config(object):
         'example1.com',
         'example2.com',
     ]
-    # certbot-auto 目录绝对路径
-    CERTBOT_DIR = '/root'
     # 测试模式：True or False
     CERTBOT_TEST = True
 
