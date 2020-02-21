@@ -21,5 +21,5 @@ vim config.py
 
 # 定时任务
 vim /etc/crontab
-0 0 1 * * root cd /path/RenewSSLCert && /path/python3 renew.py >> renew.log
+0 0 1 * * root cd /path/RenewSSLCert && /path/python3 renew.py >> renew.log && /bin/systemctl reload nginx
 ```
