@@ -7,12 +7,12 @@
  - Python3
  - crontab
  - Nginx
- - certbot-auto
+ - certbot
 
 ### 使用方法
 > 需要提前申请好[Let's Encrypt SSL证书](./SSLCertificate.md)
 ```bash
-# 安装依赖
+# 安装Python依赖
 pip install -r requirements.txt
 
 # 配置文件
@@ -21,5 +21,5 @@ vim config.py
 
 # 定时任务
 vim /etc/crontab
-0 0 1 * * root cd /path/RenewSSLCert && /path/python renew.py >> renew.log && /bin/systemctl nginx restart
+0 0 1 * * root cd /path/RenewSSLCert && /path/python3 renew.py >> renew.log && /bin/systemctl nginx restart
 ```

@@ -5,13 +5,13 @@
 
 
 ### 运行环境
-- OS: `Ubuntu 16.04`
+- OS: `Ubuntu 18.04`
 
 
 ### 必要的准备
 - `Nginx`
 
-- `certbot-auto`
+- `certbot`
 
 - 域名 `example.com` _根据实际情况修改_
 
@@ -22,22 +22,22 @@
 
 ### 证书申请
 
-1. 下载 `certbot-auto`
+1. 下载安装 `certbot`
 ```bash
-wget https://dl.eff.org/certbot-auto
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot python-certbot-nginx
 ```
 
-2. 设置可执行权限
+2. <p id="apply">证书申请</p>
 ```bash
-chmod a+x certbot-auto
+certbot certonly -d "*.example.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
 ```
 
-3. <p id="apply">证书申请</p>
-```bash
-./certbot-auto certonly -d "*.example.com" --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory
-```
-
-4. 输入邮箱，用于安全提醒以及续期提醒
+3. 输入邮箱，用于安全提醒以及续期提醒
 ```
  Saving debug log to /var/log/letsencrypt/letsencrypt.log
  Plugins selected: Authenticator manual, Installer None
@@ -45,7 +45,7 @@ chmod a+x certbot-auto
   (Enter 'c' to cancel): your@mail.com
 ```
 
-5. 同意 `Let's Encrypt` 协议要求，输入 `A`
+4. 同意 `Let's Encrypt` 协议要求，输入 `A`
 ```
  Please read the Terms of Service at
  https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
@@ -55,14 +55,14 @@ chmod a+x certbot-auto
  (A)gree/(C)ancel: A
 ```
 
-6. 绑定域名和IP，输入 `Y`
+5. 绑定域名和IP，输入 `Y`
 ```
  Are you OK with your IP being logged?
  --------------------------------------------------------
  (Y)es/(N)o: Y
 ```
 
-7. 配置 DNS TXT记录
+6. 配置 DNS TXT记录
 ```
  Please deploy a DNS TXT record under the name
  _acme-challenge.example.com with the following value:
@@ -81,12 +81,12 @@ chmod a+x certbot-auto
 
  添加完成后，按 `回车` 确认
 
-8. 确认 TXT 记录是否生效
+7. 确认 TXT 记录是否生效
 ```bash
  dig  -t txt  _acme-challenge.example.com @8.8.8.8
 ```
 
-9. 校验证书信息
+8. 校验证书信息
 ```bash
  openssl x509 -in  /etc/letsencrypt/live/example.com/cert.pem
 ```
