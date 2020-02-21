@@ -1,6 +1,6 @@
 # Let's Encrypt SSL证书自动续期
 
-> 如果你的域名在腾讯云解析，并且使用certbot-auto，就可以使用这个小工具自动续期 Let's Encrypt 的SSL证书。
+> 如果你的域名在腾讯云解析，并且使用certbot，就可以使用这个小工具自动续期 Let's Encrypt 的SSL证书。
 
 ### 环境依赖
  - Linux
@@ -21,5 +21,5 @@ vim config.py
 
 # 定时任务
 vim /etc/crontab
-0 0 1 * * root cd /path/RenewSSLCert && /path/python3 renew.py >> renew.log && /bin/systemctl nginx restart
+0 0 1 * * root cd /path/RenewSSLCert && /path/python3 renew.py >> renew.log
 ```
